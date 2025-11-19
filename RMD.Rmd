@@ -1,0 +1,61 @@
+---
+title: "Compte-rendu du TP noté sondage"
+author: "Louis NUGIER et Lucas DE FRANCESCHI"
+date: "21 novembre 2025"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+
+```{r}
+# Options globales pour les chunks de code
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+# Chargement des bibliothèques nécessaires pour l'analyse et la visualisation
+library(dplyr)
+library(ggplot2)
+```
+---
+#Introduction et Objectifs
+
+L'objectif de ce Travail Pratique est d'estimer le nombre total d'élèves ($T$) inscrits dans les écoles élémentaires en France en 2024 en utilisant différentes techniques de sondage : l'échantillonnage aléatoire simple (TAS) et l'échantillonnage stratifié.
+
+Nous utiliserons une taille de population $N = 47413$ écoles et nous comparons la précision des estimateurs $\hat{T}_1$, $\hat{T}_2$, $\hat{T}_3$ et $\hat{T}_{\text{strat}}$.
+---
+
+---
+#Phase 1 : Échantillonnage Aléatoire Simple (TAS)
+
+##Action 1 : Tirage de l'échantillon initial (n=1000)
+
+Cette section simule le tirage aléatoire simple (TAS) initial de 1000 écoles à partir de la base de sondage complète (elementaire_2024_id.csv).
+---
+
+```{r}
+# Chargement de la base de sondage complète (éléments pour le tirage)
+df <- read.csv2("C:/Users/lnugier/OneDrive - univ-lyon2.fr/Pièces jointes/S3/Technique de sondage et méthodologie d'enquete/TP noté/elementaire_2024_id.csv")
+
+# Utilisation d'une graine pour garantir la reproductibilité du tirage
+set.seed(123) 
+echantillon <- sample(df$code_ecole, size = 1000, replace = FALSE)
+write.csv(data.frame(code_ecole = echantillon),
+          "echantillon_code_ecole.csv",
+          row.names = FALSE)
+```
+
+
+
+un petit paragraphe d'introduction?
+
+# Titre de niveau 1
+
+## titre de niveau 2 
+
+Ici du texte, éventuellement _mis en italique_ ou __en gras__ .
+
+```{r}
+#ici du code R qui s'exécute dans un chunk
+z<-3+2
+```
+Et ici du code R qui s'exécute dans le texte : z=`r z`.  Pur un bel affichage on peut faire $2^8=$ `r formatC(2^8, digits=0, big.mark=" ", format="f")`.  Et pour  les formules Latex : $\hat{T}_1$.
